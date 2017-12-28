@@ -78,7 +78,6 @@ namespace HOTELpinSight.Pages
             _signInButton.Click();
             return new HotelSearchPage(_driver);
         }
-
         /// <summary>
         /// Log into the application using the given credentials.
         /// </summary>
