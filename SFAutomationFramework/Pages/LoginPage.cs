@@ -84,7 +84,7 @@ namespace HOTELpinSight.Pages
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public HotelSearchPage Login(string username, string password)
+        public HotelSearchPage EnterCredentials(string username, string password)
         {
             this.Username = username;
             this.Password = password;

@@ -6,7 +6,7 @@
 @sniffTesting
 Scenario: E2E Hotel Booking
 	Given I have entered to pinSight application	
-	When I enter city to search hotel
+	When I enter MVD to search hotel
 	And I have added to cart the selected hotel room
 	And I have checked out
 	Then room should be booked
