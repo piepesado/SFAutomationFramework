@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Firefox;
+using System.Configuration;
 
 namespace HOTELpinSight
 {
@@ -13,7 +14,22 @@ namespace HOTELpinSight
         /// <returns></returns>
         internal static IWebDriver Create()
         {
-            IWebDriver driver = CreateChromeDriver();
+            IWebDriver driver = null;
+            string browserName = ConfigurationManager.AppSettings["BROWSER"];
+
+            switch (browserName)
+            {
+                case "Chrome":
+                    driver = CreateChromeDriver();
+                    break;
+                case "Firefox":
+                    driver = driver = CreateFirefoxDriver();
+                    break;
+                case "IE":
+                    driver = driver = CreateIEDriver();
+                    break;
+            }
+            //IWebDriver driver = CreateChromeDriver();
             // IWebDriver driver = CreateIEDriver();
             // IWebDriver driver = CreateFirefoxDriver();
             return driver;
@@ -43,4 +59,3 @@ namespace HOTELpinSight
         }
     }
 }
-

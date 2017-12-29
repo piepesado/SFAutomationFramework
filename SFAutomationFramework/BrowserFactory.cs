@@ -26,7 +26,6 @@ namespace HOTELpinSight
             }
         }
 
-
         public static void InitBrowser(string browserName)
         {
             switch (browserName)
