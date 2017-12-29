@@ -30,7 +30,6 @@ namespace HOTELpinSight.Pages
         //Datepickers
         [FindsBy(How = How.Id, Using = "input")]
         private IWebElement _checkInDatePicker;
-
         
         [FindsBy(How = How.LinkText, Using = "Pick a year from the dropdown")]
         private IWebElement _checkInDatePickerYear;
@@ -54,6 +53,7 @@ namespace HOTELpinSight.Pages
         //[FindsBy(How = How.Name, Using = "check-in-date")]
         //private IWebElement _checkinDate;
 
+        //Candidate for Base page actions
         public void Search(string value)
         {
             WaitForElementVisible(_search);
