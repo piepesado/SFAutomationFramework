@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
+using NUnit.Framework;
 
 namespace HOTELpinSight.Pages
 {
@@ -34,8 +35,16 @@ namespace HOTELpinSight.Pages
                 throw new ArgumentNullException(nameof(element));
             }
 
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(90));
             wait.Until(d => element.Displayed);
+        }
+
+        public void SetElementText(IWebElement element, string text)
+        {
+            WaitForElementVisible(element);
+            element.Clear();
+            element.Click();
+            Assert.Equals(element.GetAttribute("value"), text);
         }
     }
 }

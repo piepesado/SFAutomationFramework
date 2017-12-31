@@ -38,7 +38,7 @@ namespace HOTELpinSight.Pages
         //Try to find filter sliders identifiers.
 
         //Hotel Details pop up
-        [FindsBy(How = How.CssSelector, Using = "div.wrapper.master-wrapper section.main-content:nth-child(2) div.container div.row.jsPreloaderHiddenContainer:nth-child(1) div.col-sm-12.col-md-12 div.RightPanel:nth-child(2) section.map-container:nth-child(2) t-hotel-map-results-page.x-scope.t-hotel-map-results-page-0 div.google-map-wrapper.style-scope.t-hotel-map-results-page:nth-child(2) div.gmap-right-col.style-scope.t-hotel-map-results-page:nth-child(7) div.modal.fade.in.modal-hotel-detail.style-scope.t-hotel-map-results-page div.modal-dialog.style-scope.t-hotel-map-results-page div.modal-content.style-scope.t-hotel-map-results-page div.style-scope.t-hotel-map-results-page iron-pages.style-scope.t-hotel-map-results-page:nth-child(6) div.results_tab_content.roooms.clearfix.style-scope.t-hotel-map-results-page.iron-selected:nth-child(2) t-hotel-room-list.style-scope.t-hotel-map-results-page.x-scope.t-hotel-room-list-0 div.style-scope.t-hotel-room-list div.style-scope.t-hotel-room-list:nth-child(8) t-hotel-room-item.style-scope.t-hotel-room-list.x-scope.t-hotel-room-item-0:nth-child(2) div.roomsrow.border-btm-blue.style-scope.t-hotel-room-item div.new-room-wrap.row.layout.horizontal.style-scope.t-hotel-room-item div.col-sm-3.text-right.style-scope.t-hotel-room-item div.price_box01.ptm.style-scope.t-hotel-room-item:nth-child(6) t-button.primary.style-scope.t-hotel-room-item.x-scope.t-button-2:nth-child(2) paper-button.style-scope.t-button.x-scope.paper-button-0:nth-child(1) > span.style-scope.t-button:nth-child(1)")]
+        [FindsBy(How = How.Id, Using = "text-button")]
         private IWebElement _addToCartButton;
 
         //Add to cart confirmation pop up
@@ -67,10 +67,11 @@ namespace HOTELpinSight.Pages
 
         public void ClickAddToCart()
         {
-            Actions clickAddCart = new Actions(_driver);
             WaitForElementVisible(_addToCartButton);
-            clickAddCart.MoveToElement(_addToCartButton).Perform();
-            clickAddCart.Click(_addToCartButton);            
+            Actions clickAddCart = new Actions(_driver);
+            //clickAddCart.MoveToElement(_addToCartButton).Perform();
+            clickAddCart.Click(_addToCartButton);
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _searchRoomsButton);
             clickAddCart.Build();
             clickAddCart.Perform();
             //_addToCartButton.Click();
