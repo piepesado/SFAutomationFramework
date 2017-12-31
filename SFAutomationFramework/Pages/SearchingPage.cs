@@ -12,14 +12,14 @@ namespace HOTELpinSight.Pages
         }
 
         [FindsBy(How = How.Id, Using = "dvPreloader")]
-        private IWebElement loader;
+        private IWebElement _loader;
 
         //move this procedure to a Helper class
         public void EnsurePageIsLoaded()
         {
             //define details of this function
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
-            wait.Until(ExpectedConditions.ElementToBeClickable(loader));
+            wait.Until(ExpectedConditions.ElementToBeClickable(_loader));
         }
     }
 }

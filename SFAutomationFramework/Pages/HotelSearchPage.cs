@@ -23,7 +23,9 @@ namespace HOTELpinSight.Pages
         [FindsBy(How = How.CssSelector, Using = "#dropBox>ul>li:nth-child(1)")]
         private IWebElement _searchOption;
 
-        
+        [FindsBy(How = How.CssSelector, Using = "div.wrapper.home-wrapper section.main-content:nth-child(2) div.container:nth-child(2) div.row div.col-sm-12.col-md-4:nth-child(1) div.search-form tlg-search-widget.x-scope.tlg-search-widget-0:nth-child(2) tlg-hotel-search-page.style-scope.tlg-search-widget.x-scope.tlg-hotel-search-page-0:nth-child(1) tlg-hotel-search.style-scope.tlg-hotel-search-page.x-scope.tlg-hotel-search-0:nth-child(2) div.search-comp-room-added.style-scope.tlg-hotel-search div.search-comp-room-passenger.style-scope.tlg-hotel-search tlg-search-passenger.style-scope.tlg-hotel-search.x-scope.tlg-search-passenger-0:nth-child(2) div.search-comp-room-pax.style-scope.tlg-search-passenger div.stepper-wrap.horizontal-margin-right.style-scope.tlg-search-passenger:nth-child(1) t-stepper.flex.style-scope.tlg-search-passenger.x-scope.t-stepper-0 div.layout.horizontal.center.style-scope.t-stepper div.layout.horizontal.center.style-scope.t-stepper:nth-child(5) > iron-icon.style-scope.t-stepper.x-scope.iron-icon-0")]
+        private IWebElement _minusAdult;
+
 
         //Not sure about the identifiers
 
@@ -52,6 +54,15 @@ namespace HOTELpinSight.Pages
 
         //[FindsBy(How = How.Name, Using = "check-in-date")]
         //private IWebElement _checkinDate;
+
+        public void SelectOneAdult()
+        {
+            Actions selectOne = new Actions(_driver);
+            selectOne.MoveToElement(_minusAdult);
+            selectOne.Click(_minusAdult);
+            selectOne.Build();
+            selectOne.Perform();
+        }
 
         //Candidate for Base page actions
         public void Search(string value)
