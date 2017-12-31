@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\CheckOutPage.cs" />
+    <Compile Include="Pages\ConfirmationPage.cs" />
     <Compile Include="Pages\HotelSearchPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\ResultsPage.cs" />

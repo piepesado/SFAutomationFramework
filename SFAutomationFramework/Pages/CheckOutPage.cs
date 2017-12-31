@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Support.PageObjects;
+using SFAutomationFramework.Pages;
 
 namespace HOTELpinSight.Pages
 {
@@ -11,7 +12,7 @@ namespace HOTELpinSight.Pages
         }
 
         //Pax Info
-        [FindsBy(How = How.Id, Using = "dLabel0")]
+        [FindsBy(How = How.CssSelector, Using = "div.wrapper.master-wrapper section.main-content:nth-child(2) div.container div.row.jsPreloaderHiddenContainer:nth-child(1) div.col-sm-12.col-md-12 div.RightPanel:nth-child(2) div.bg-white.border-top.mbl:nth-child(2) tlg-trip-summary.x-scope.tlg-trip-summary-0 div.style-scope.tlg-trip-summary:nth-child(2) tlg-itinerary-details.style-scope.tlg-trip-summary:nth-child(1) tlg-hotel-product-details.style-scope.tlg-itinerary-details.x-scope.tlg-hotel-product-details-0:nth-child(3) div.pll.prl.mtm.style-scope.tlg-hotel-product-details div.row.style-scope.tlg-hotel-product-details:nth-child(2) div.col-sm-12.col-md-7.phn.mbl.style-scope.tlg-hotel-product-details:nth-child(2) div.style-scope.tlg-hotel-product-details div.col-sm-6.style-scope.tlg-hotel-product-details:nth-child(2) div.layout.vertical.style-scope.tlg-hotel-product-details div.flex-auto.dropdown.custom-dropdown-wrapper.style-scope.tlg-hotel-product-details.open:nth-child(4) ul.dropdown-menu.ddlTravelerH.style-scope.tlg-hotel-product-details li:nth-child(1) > a:nth-child(1)")]
         private IWebElement _pax1;
 
         [FindsBy(How = How.Id, Using = "dLabel1")]
@@ -72,7 +73,7 @@ namespace HOTELpinSight.Pages
 
         public void SelectPax(string namePax1)
         {
-            WaitForElementVisible(_pax1);
+            //WaitForElementVisible(_pax1);
             new SelectElement(_pax1).SelectByValue(namePax1);
         }
 
@@ -112,6 +113,12 @@ namespace HOTELpinSight.Pages
         {
             WaitForElementVisible(_chkAgreement);
             _chkAgreement.Click();
+        }
+
+        public ConfirmationPage ClickSearch()
+        {
+            _completeBookButton.Click();
+            return new ConfirmationPage(_driver);
         }
     }
 }

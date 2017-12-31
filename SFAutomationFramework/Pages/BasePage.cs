@@ -34,7 +34,7 @@ namespace HOTELpinSight.Pages
                 throw new ArgumentNullException(nameof(element));
             }
 
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
             wait.Until(d => element.Displayed);
         }
     }
