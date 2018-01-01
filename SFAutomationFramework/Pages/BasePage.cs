@@ -24,7 +24,7 @@ namespace HOTELpinSight.Pages
         }
 
         /// <summary>
-        /// Wait for an elemnet to be visible.
+        /// Wait for an element to be visible.
         /// </summary>
         /// <param name="element"></param>
         /// <exception cref="NoSuchElementException"></exception>"
@@ -35,10 +35,14 @@ namespace HOTELpinSight.Pages
                 throw new ArgumentNullException(nameof(element));
             }
 
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(90));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(120));
             wait.Until(d => element.Displayed);
         }
-
+        /// <summary>
+        /// Enters user strings
+        /// </summary>
+        /// <param name="element"></param>   
+        /// <param name="text"></param>  
         public void SetElementText(IWebElement element, string text)
         {
             WaitForElementVisible(element);

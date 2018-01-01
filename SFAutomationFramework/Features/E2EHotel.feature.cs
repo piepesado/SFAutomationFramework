@@ -76,7 +76,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("I have entered to pinSight application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.When("I enter MVD to search hotel", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I enter NYC to search hotel", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
  testRunner.And("I have added to cart the selected hotel room", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
