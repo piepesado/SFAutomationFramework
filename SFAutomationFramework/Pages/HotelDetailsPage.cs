@@ -46,8 +46,7 @@ namespace SFAutomationFramework.Pages
             /*
             Actions clickAddCart = new Actions(_driver);
             clickAddCart.MoveToElement(_addToCartButton).Perform();
-            clickAddCart.Click(_addToCartButton);
-            
+            clickAddCart.Click(_addToCartButton);            
             clickAddCart.Build();
             clickAddCart.Perform();
             //_addToCartButton.Click();
