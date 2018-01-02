@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
+using SFAutomationFramework.Pages;
 
 namespace HOTELpinSight.Pages
 {
@@ -63,15 +64,10 @@ namespace HOTELpinSight.Pages
             _cardView.Click();
         }
         
-        public void ClickShowRooms()
-        {            
-            WaitForElementVisible(_searchRoomsButton);
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _searchRoomsButton);
-            _searchRoomsButton.Click();
-                    
-        }
+        
 
 
+        /*
         public void ClickAddToCart()
         {
 
@@ -94,19 +90,13 @@ namespace HOTELpinSight.Pages
             
             //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click()", _addToCartButton);
             */
-        }
-
-        public void ClickCheckOutButton()
-        {
-            WaitForElementVisible(_checkOutButton);
-            _checkOutButton.Click();
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _checkOutButton);
-        }
+        //}
+       
 
         public void CheckImAtCheckOut()
         {
             WaitForElementVisible(_checkOutButton);
-        }        
+        }
 
         /*
         public void ClickCheckOut()
@@ -116,17 +106,22 @@ namespace HOTELpinSight.Pages
         };
         */
 
+        /*
         public void ClickAmenities()
         {
             WaitForElementVisible(_addToCartButton);
             _amenitiesTab.Click();
             _roomDetailsTab.Click();
         }
+        */
 
-        public CheckOutPage ClickSearch()
+        public HotelDetailsPage ClickShowRooms()
         {
-            _checkOutButton.Click();
-            return new CheckOutPage(_driver);
+            WaitForElementVisible(_searchRoomsButton);
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _searchRoomsButton);
+            _searchRoomsButton.Click();
+            return new HotelDetailsPage(_driver);
+
         }
     }
 }

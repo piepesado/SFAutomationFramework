@@ -70,6 +70,7 @@
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\CheckOutPage.cs" />
     <Compile Include="Pages\ConfirmationPage.cs" />
+    <Compile Include="Pages\HotelDetailsPage.cs" />
     <Compile Include="Pages\HotelSearchPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\ResultsPage.cs" />
@@ -79,14 +80,19 @@
     <Compile Include="WebDriverFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Features\E2EHotel.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>E2EHotel.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="geckodriver.exe" />
+    <Content Include="IEDriverServer.exe" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Selenium.Chrome.WebDriver.2.33\build\Selenium.Chrome.WebDriver.targets" Condition="Exists('..\packages\Selenium.Chrome.WebDriver.2.33\build\Selenium.Chrome.WebDriver.targets')" />

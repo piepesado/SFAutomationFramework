@@ -19,26 +19,29 @@ namespace HOTELpinSight
 
             switch (browserName)
             {
+                case "chrome":
                 case "Chrome":
+                case "CHROME":
                     driver = CreateChromeDriver();
                     break;
+                case "firefox":
                 case "Firefox":
+                case "FIREFOX":
                     driver = driver = CreateFirefoxDriver();
                     break;
+                case "Ie":
+                case "ie":
                 case "IE":
                     driver = driver = CreateIEDriver();
                     break;
-            }
-            //IWebDriver driver = CreateChromeDriver();
-            // IWebDriver driver = CreateIEDriver();
-            // IWebDriver driver = CreateFirefoxDriver();
+            }            
             return driver;
         }
 
         private static IWebDriver CreateChromeDriver()
         {
             ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--window-size=1280,720");
+            //options.AddArgument("--window-size=1280,720");
             options.AddArgument("--start-maximized");
             // options.AddArgument("headless"); // This would be added if running on a server through Jenkins.
 
