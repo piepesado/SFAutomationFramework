@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.PageObjects;
@@ -117,11 +119,53 @@ namespace HOTELpinSight.Pages
 
         public HotelDetailsPage ClickShowRooms()
         {
-            WaitForElementVisible(_searchRoomsButton);
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _searchRoomsButton);
-            _searchRoomsButton.Click();
+            // Old way with CSS selector
+            //WaitForElementVisible(_searchRoomsButton);
+            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _searchRoomsButton);
+            //_searchRoomsButton.Click();
+
+            // This is a hack for the pinSIGHT hotel page because the hotel details
+            // are displayed in a popup dialog in the browser. Essentially, the dialog
+            // is overlayed on top of the existing page. We need to account for the delay
+            // in rendering the popup.
+
+            IWebElement showRoomsButton = null;
+
+            for (int i = 0; i < 120; i++)
+            {
+                var buttons = _driver.FindElements(By.TagName("t-button"));
+                showRoomsButton = buttons.FirstOrDefault(e => e.Text.Equals("SHOW ROOMS", StringComparison.InvariantCultureIgnoreCase));
+                if (showRoomsButton == null)
+                {
+                    // Wait for a second and attempt to find it again.
+                    System.Threading.Thread.Sleep(1000);
+                }
+                else
+                {
+                    // We have the button. Break out.
+                    break;
+                }
+            }
+
+            if (showRoomsButton == null)
+            {
+                throw new Exception("Failed to find a SHOW ROOMS button on the hotel search result page.");
+            }
+
+            WaitForElementVisible(showRoomsButton);
+
+            // Wait for some time for rendering to be complete.
+            Thread.Sleep(2000);
+            showRoomsButton.Click();
+
             return new HotelDetailsPage(_driver);
 
+        }
+
+        public void EnsurePageIsLoaded()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(120));
+            wait.Until(d => d.Title.Contains("Hotel Result"));
         }
     }
 }

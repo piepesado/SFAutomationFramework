@@ -6,6 +6,7 @@ using System.Threading;
 using TechTalk.SpecFlow;
 using System.Configuration;
 using SFAutomationFramework.Pages;
+using System;
 
 namespace SFAutomationFramework.Steps
 { 
@@ -27,7 +28,7 @@ namespace SFAutomationFramework.Steps
         string cardNumber = "4111111111111111";
         string cvvNumber = "123";
         string nameCard = "Rohan Pandit";
-        string expMonth = "Apr";
+        string expMonth = "April";
         string expYear = "2018";
 
         //Parameters Billing Address
@@ -60,10 +61,14 @@ namespace SFAutomationFramework.Steps
         [When(@"I enter (.*) to search hotel")]
         public void WhenIEnterCityToSearchHotel(string city)
         {
-            city = "NYC";
+            // city = "NYC";
             HotelSearchPage hotelSearch = new HotelSearchPage(_driver);
             hotelSearch.Search(city);
             hotelSearch.SelectOneAdult();
+
+            // HACK -- need to sleep for the date control to render.
+            Thread.Sleep(2000);
+
             hotelSearch.ClickSearch();
         }
         
@@ -71,17 +76,20 @@ namespace SFAutomationFramework.Steps
         public void WhenIHaveAddedToCartTheSelectedHotelRoom()
         {
             ResultsPage hotelResults = new ResultsPage(_driver);
+            hotelResults.EnsurePageIsLoaded();
+
             hotelResults.ClickShowRooms();
             //hotelResults.ClickAmenities();
             HotelDetailsPage hotelDetails = new HotelDetailsPage(_driver);            
             hotelDetails.ClickAddToCart();
-            //hotelResults.ClickCheckOutButton();
+            hotelDetails.ClickCheckOutButton();
         }
         
         [When(@"I have checked out")]
         public void WhenIHaveCheckedOut()
         {
             CheckOutPage hotelCheckOut = new CheckOutPage(_driver);
+            hotelCheckOut.EnsurePageIsLoaded();
             hotelCheckOut.SelectPax(paxNameOne);
             hotelCheckOut.EnterCreditCard(cardName, cardNumber, cvvNumber, expMonth, expYear);
             hotelCheckOut.EnterBillingAddress(addressLine1, country, state, city, zip);
@@ -96,6 +104,27 @@ namespace SFAutomationFramework.Steps
             hotelConfirmation.CheckConfNum();
 
             //Assert.IsTrue(expectedMessage
+        }
+
+        /// <summary>
+        /// Clean up the 
+        /// </summary>
+        [AfterScenario]
+        public void Cleanup()
+        {
+            try
+            {
+                if (_driver != null)
+                {
+                    _driver.Close();
+                    _driver.Dispose();
+                    _driver = null;
+                }
+            }
+            catch (Exception)
+            {
+                // We will swallow any exceptions in the cleanup step.
+            }
         }
     }
 }

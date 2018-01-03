@@ -2,6 +2,8 @@
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Support.PageObjects;
 using SFAutomationFramework.Pages;
+using System;
+using System.Threading;
 
 namespace HOTELpinSight.Pages
 {
@@ -14,6 +16,9 @@ namespace HOTELpinSight.Pages
         //Pax Info
         [FindsBy(How = How.Id, Using = "dLabel0")]
         private IWebElement _pax1;
+
+        [FindsBy(How = How.Id, Using = "ddlTraveller0")]
+        private IWebElement _passenger1FromSelectList;
 
         [FindsBy(How = How.Id, Using = "dLabel1")]
         private IWebElement _pax2;
@@ -30,6 +35,13 @@ namespace HOTELpinSight.Pages
 
         [FindsBy(How = How.CssSelector, Using = "div.wrapper.master-wrapper section.main-content:nth-child(2) div.container div.row.jsPreloaderHiddenContainer:nth-child(1) div.col-sm-12.col-md-12 div.RightPanel:nth-child(2) div.bg-white.border-top.mbl:nth-child(2) tlg-trip-summary.x-scope.tlg-trip-summary-0 tlg-multi-payment.style-scope.tlg-trip-summary:nth-child(3) div.pll.prl.style-scope.tlg-multi-payment tlg-payment-item.single.style-scope.tlg-multi-payment:nth-child(3) div.card-detail.style-scope.tlg-payment-item div.ptl.style-scope.tlg-payment-item:nth-child(2) div.row.style-scope.tlg-payment-item:nth-child(3) div.col-sm-6.col-md-4.style-scope.tlg-payment-item:nth-child(4) fieldset.form-group.style-scope.tlg-payment-item div.row.style-scope.tlg-payment-item div.col-sm-6.style-scope.tlg-payment-item:nth-child(1) > select.form-control.style-scope.tlg-payment-item")]
         private IWebElement _expDateMonth;
+
+        internal void EnsurePageIsLoaded()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(120));
+            wait.Until(d => d.Title.Contains("Checkout"));
+            Thread.Sleep(2000);
+        }
 
         [FindsBy(How = How.CssSelector, Using = "div.wrapper.master-wrapper section.main-content:nth-child(2) div.container div.row.jsPreloaderHiddenContainer:nth-child(1) div.col-sm-12.col-md-12 div.RightPanel:nth-child(2) div.bg-white.border-top.mbl:nth-child(2) tlg-trip-summary.x-scope.tlg-trip-summary-0 tlg-multi-payment.style-scope.tlg-trip-summary:nth-child(3) div.pll.prl.style-scope.tlg-multi-payment tlg-payment-item.single.style-scope.tlg-multi-payment:nth-child(3) div.card-detail.style-scope.tlg-payment-item div.ptl.style-scope.tlg-payment-item:nth-child(2) div.row.style-scope.tlg-payment-item:nth-child(3) div.col-sm-6.col-md-4.style-scope.tlg-payment-item:nth-child(4) fieldset.form-group.style-scope.tlg-payment-item div.row.style-scope.tlg-payment-item div.col-sm-6.style-scope.tlg-payment-item:nth-child(2) > select.form-control.style-scope.tlg-payment-item")]
         private IWebElement _expDateYear;
@@ -73,8 +85,10 @@ namespace HOTELpinSight.Pages
 
         public void SelectPax(string namePax1)
         {
-            //WaitForElementVisible(_pax1);
-            new SelectElement(_pax1).SelectByValue("1");
+            _pax1.Click();
+            Thread.Sleep(1000);
+            _passenger1FromSelectList.Click();
+            Thread.Sleep(1000);
         }
 
         public void EnterCreditCard(string name, string number, string cvv, string expMonth, string expYear)
