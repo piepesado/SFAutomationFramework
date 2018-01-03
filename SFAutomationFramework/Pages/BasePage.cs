@@ -3,6 +3,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
 using NUnit.Framework;
+using System.Threading;
 
 namespace HOTELpinSight.Pages
 {
@@ -36,7 +37,19 @@ namespace HOTELpinSight.Pages
             }
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(120));
-            wait.Until(d => element.Displayed);
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    wait.Until(d => element.Displayed);
+                    break;
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+
         }
         /// <summary>
         /// Enters user strings

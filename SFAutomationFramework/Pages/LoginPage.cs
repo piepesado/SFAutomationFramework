@@ -61,8 +61,7 @@ namespace HOTELpinSight.Pages
             {
                 throw new ArgumentNullException(nameof(driver));
             }
-
-            //driver.Navigate().GoToUrl(PAGE_URL);
+            
             driver.Url = ConfigurationManager.AppSettings["QA_URL"];
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             wait.Until(d => d.Title.StartsWith("Login"));

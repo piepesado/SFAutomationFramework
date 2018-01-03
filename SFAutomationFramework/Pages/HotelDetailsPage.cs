@@ -35,12 +35,23 @@ namespace SFAutomationFramework.Pages
 
         //Hotel Details pop up Actions
 
+        //TODO: this needs fixing
         public void ClickAddToCart()
         {
-            WaitForElementVisible(_addToCartButton);
+            var buttons = _driver.FindElements(By.TagName("t-button"));
+            foreach (var button in buttons)
+            {
+                if (button.Text.Equals("ADD TO CART", StringComparison.InvariantCulture))
+                {
+                    WaitForElementVisible(button);
+                    button.Click();
+                    break;
+                }
+            }
+                //WaitForElementVisible(_addToCartButton);
             //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click()", _addToCartButton);
-            _addToCartButton.Click();
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _addToCartButton);
+            //_addToCartButton.Click();
+            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _addToCartButton);
 
             /*
             Actions clickAddCart = new Actions(_driver);
