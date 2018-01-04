@@ -13,13 +13,8 @@ namespace SFAutomationFramework.Steps
     [Binding]
     public class E2EHotelFlowSteps
     {
-        private IWebDriver _driver;
-        private LoginPage _loginPage;
-        //private HotelSearchPage _hotelSearchPage;
-        private SearchingPage _searchingPage;
-        //private ResultsPage _resultsPage;
-        private CheckOutPage _checkOutPage;
-
+        private IWebDriver _driver;          
+        
         //Parmeters Choose traveler
         string paxNameOne = "Hector Norte";
 
@@ -36,7 +31,7 @@ namespace SFAutomationFramework.Steps
         string city = "Piano";
         string country = "United States";
         string zip = "75034";
-        string state = "Texas";
+        string state = "TX";
         
         //Parameters Comminication Details
         string phoneBilling = "89890898875";
@@ -52,10 +47,10 @@ namespace SFAutomationFramework.Steps
             _driver = WebDriverFactory.Create();
             LoginPage login = new LoginPage(_driver);
             
-            _loginPage = LoginPage.NavigateTo(_driver);
+            login = LoginPage.NavigateTo(_driver);
             string userConf = ConfigurationManager.AppSettings["USER"];
             string passConf = ConfigurationManager.AppSettings["PASS"];
-            _loginPage.EnterCredentials(userConf, passConf);            
+            login.EnterCredentials(userConf, passConf);            
         }
         
         [When(@"I enter (.*) to search hotel")]
@@ -90,11 +85,12 @@ namespace SFAutomationFramework.Steps
         {
             CheckOutPage hotelCheckOut = new CheckOutPage(_driver);
             hotelCheckOut.EnsurePageIsLoaded();
-            hotelCheckOut.SelectPax(paxNameOne);
+            hotelCheckOut.SelectPassengerDropDown();
             hotelCheckOut.EnterCreditCard(cardName, cardNumber, cvvNumber, expMonth, expYear);
-            hotelCheckOut.EnterBillingAddress(addressLine1, country, state, city, zip);
+            hotelCheckOut.EnterBillingAddress(addressLine1, country, state, city, zip);            
             hotelCheckOut.EnterCommunicationDetails(phoneBilling);
             hotelCheckOut.CheckAgreement();
+            hotelCheckOut.ClickConfirmBook();
         }
         
         [Then(@"room should be booked")]

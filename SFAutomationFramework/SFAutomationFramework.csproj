@@ -58,9 +58,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\SFAutomationFramework\SFAutomationFramework\Steps\E2EHotelFlowSteps.cs">
-      <Link>Steps\E2EHotelFlowSteps.cs</Link>
-    </Compile>
     <Compile Include="BrowserFactory.cs" />
     <Compile Include="Features\E2EHotel.feature.cs">
       <AutoGen>True</AutoGen>
