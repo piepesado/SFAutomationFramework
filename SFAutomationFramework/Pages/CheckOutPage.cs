@@ -21,6 +21,9 @@ namespace HOTELpinSight.Pages
         [FindsBy(How = How.Id, Using = "ddlTraveller0")]
         private IWebElement _passenger1FromSelectList;
 
+        [FindsBy(How = How.CssSelector, Using = "div.wrapper.master-wrapper section.main-content:nth-child(2) div.container div.row.jsPreloaderHiddenContainer:nth-child(1) div.col-sm-12.col-md-12 div.RightPanel:nth-child(2) div.bg-white.border-top.mbl:nth-child(2) tlg-trip-summary.x-scope.tlg-trip-summary-0 div.style-scope.tlg-trip-summary:nth-child(2) tlg-itinerary-details.style-scope.tlg-trip-summary:nth-child(1) tlg-hotel-product-details.style-scope.tlg-itinerary-details.x-scope.tlg-hotel-product-details-0:nth-child(3) div.pll.prl.mtm.style-scope.tlg-hotel-product-details div.row.style-scope.tlg-hotel-product-details:nth-child(2) div.col-sm-12.col-md-7.phn.mbl.style-scope.tlg-hotel-product-details:nth-child(2) div.style-scope.tlg-hotel-product-details div.col-sm-6.style-scope.tlg-hotel-product-details:nth-child(2) div.layout.vertical.style-scope.tlg-hotel-product-details div.flex-auto.dropdown.custom-dropdown-wrapper.style-scope.tlg-hotel-product-details.open:nth-child(4) ul.dropdown-menu.ddlTravelerH.style-scope.tlg-hotel-product-details li:nth-child(1) > a:nth-child(1)")]
+        private IWebElement _selectHector;
+
         [FindsBy(How = How.Id, Using = "dLabel1")]
         private IWebElement _pax2;
 
@@ -86,17 +89,21 @@ namespace HOTELpinSight.Pages
 
         //Complete Booking button
 
-        [FindsBy(How = How.CssSelector, Using = "div.wrapper.master-wrapper section.main-content:nth-child(2) div.container div.row.jsPreloaderHiddenContainer:nth-child(1) div.col-sm-12.col-md-12 div.RightPanel:nth-child(2) div.bg-white.border-top.mbl:nth-child(2) tlg-trip-summary.x-scope.tlg-trip-summary-0 tlg-communication-details.style-scope.tlg-trip-summary:nth-child(4) div.product-header.style-scope.tlg-communication-details div.row.checkout-comm-details.layout.horizontal.style-scope.tlg-communication-details div.col-sm-5.col-md-4.text-right.layout.vertical.end-justified.style-scope.tlg-communication-details div.text-right.ptm.style-scope.tlg-communication-details:nth-child(4) > button.btn.btn-warning.style-scope.tlg-communication-details")]
+        [FindsBy(How = How.Id, Using = "btnBook")]
         private IWebElement _completeBookButton;
+
+        //Pax last name auto completed field after selecting it from the dropdown
+        [FindsBy(How = How.Id, Using = "btnBook")]
+        private IWebElement _lastName;
 
         //Actions
 
-        public void SelectPax(string namePax1)
+        public void SelectPax()
         {
             _pax1.Click();
-            Thread.Sleep(1000);
-            _passenger1FromSelectList.Click();
-            Thread.Sleep(1000);
+            WaitForElementVisible(_selectHector);
+            _selectHector.Click();
+            Thread.Sleep(2000);
         }
 
         public void EnterCreditCard(string name, string number, string cvv, string expMonth, string expYear)
@@ -113,13 +120,17 @@ namespace HOTELpinSight.Pages
             new SelectElement(_expDateYear).SelectByText(expYear);
         }
 
-        public void SelectPassengerDropDown()
+        /*
+        public void SelectPassengerDropDown(string paxName)
         {
             WaitForElementVisible(_clickDropDownPax);
             _clickDropDownPax.Click();
-            WaitForElementVisible(_guestSelect);
-            _guestSelect.Click();
+            Thread.Sleep(1000);
+            //WaitForElementVisible(_selectHector);
+            _selectHector.Click();
+            Thread.Sleep(3000);
         }
+        */
 
         public void EnterBillingAddress(string address, string country, string state, string city, string zip)
         {
@@ -128,7 +139,7 @@ namespace HOTELpinSight.Pages
             _address1.SendKeys(Keys.Tab);
             new SelectElement(_country).SelectByText(country);
             WaitForElementVisible(_state);
-            new SelectElement(_state).SelectByValue(state);
+            new SelectElement(_state).SelectByText(state);
             _city.SendKeys(city);
             _city.SendKeys(Keys.Tab);
             //Thread.Sleep(2000);
@@ -143,22 +154,21 @@ namespace HOTELpinSight.Pages
         }
 
         public void CheckAgreement()
-        {            
-            WaitForElementVisible(_chkAgreement);
-            Actions clickCheck = new Actions(_driver);
-            clickCheck.MoveToElement(_chkAgreement).Perform();
-            clickCheck.Click(_chkAgreement);
-            clickCheck.Build();
-            clickCheck.Perform();
-            
-            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _chkAgreement);                   
+        {
+            var js = _driver as IJavaScriptExecutor;
+
+            if (js != null)
+            {
+                js.ExecuteScript("document.getElementById('chkTerms').click();");
+            }                              
             
         }
 
         public ConfirmationPage ClickConfirmBook()
         {
-            WaitForElementVisible(_completeBookButton);
-            _completeBookButton.Click();
+            //WaitForElementVisible(_completeBookButton);
+            Actions completeBook = new Actions(_driver);
+            completeBook.MoveToElement(_completeBookButton).Click().Perform();
             return new ConfirmationPage(_driver);
         }
     }

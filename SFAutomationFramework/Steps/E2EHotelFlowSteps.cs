@@ -31,7 +31,7 @@ namespace SFAutomationFramework.Steps
         string city = "Piano";
         string country = "United States";
         string zip = "75034";
-        string state = "TX";
+        string state = "Texas";
         
         //Parameters Comminication Details
         string phoneBilling = "89890898875";
@@ -85,7 +85,7 @@ namespace SFAutomationFramework.Steps
         {
             CheckOutPage hotelCheckOut = new CheckOutPage(_driver);
             hotelCheckOut.EnsurePageIsLoaded();
-            hotelCheckOut.SelectPassengerDropDown();
+            hotelCheckOut.SelectPax();
             hotelCheckOut.EnterCreditCard(cardName, cardNumber, cvvNumber, expMonth, expYear);
             hotelCheckOut.EnterBillingAddress(addressLine1, country, state, city, zip);            
             hotelCheckOut.EnterCommunicationDetails(phoneBilling);
@@ -95,7 +95,7 @@ namespace SFAutomationFramework.Steps
         
         [Then(@"room should be booked")]
         public void ThenRoomShouldBeBooked()
-        {
+        {            
             ConfirmationPage hotelConfirmation = new ConfirmationPage(_driver);
             hotelConfirmation.CheckConfNum();
 
