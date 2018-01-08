@@ -45,14 +45,7 @@ namespace HOTELpinSight.Pages
         private IWebElement _clickDropDownPax;
 
         [FindsBy(How = How.Id, Using = "ddlTraveller0")]
-        private IWebElement _guestSelect;
-
-        internal void EnsurePageIsLoaded()
-        {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(120));
-            wait.Until(d => d.Title.Contains("Checkout"));
-            Thread.Sleep(2000);
-        }
+        private IWebElement _guestSelect;        
 
         [FindsBy(How = How.CssSelector, Using = "div.wrapper.master-wrapper section.main-content:nth-child(2) div.container div.row.jsPreloaderHiddenContainer:nth-child(1) div.col-sm-12.col-md-12 div.RightPanel:nth-child(2) div.bg-white.border-top.mbl:nth-child(2) tlg-trip-summary.x-scope.tlg-trip-summary-0 tlg-multi-payment.style-scope.tlg-trip-summary:nth-child(3) div.pll.prl.style-scope.tlg-multi-payment tlg-payment-item.single.style-scope.tlg-multi-payment:nth-child(3) div.card-detail.style-scope.tlg-payment-item div.ptl.style-scope.tlg-payment-item:nth-child(2) div.row.style-scope.tlg-payment-item:nth-child(3) div.col-sm-6.col-md-4.style-scope.tlg-payment-item:nth-child(4) fieldset.form-group.style-scope.tlg-payment-item div.row.style-scope.tlg-payment-item div.col-sm-6.style-scope.tlg-payment-item:nth-child(2) > select.form-control.style-scope.tlg-payment-item")]
         private IWebElement _expDateYear;
@@ -96,7 +89,7 @@ namespace HOTELpinSight.Pages
         [FindsBy(How = How.Id, Using = "btnBook")]
         private IWebElement _lastName;
 
-        //Actions
+        //Actions       
 
         public void SelectPax()
         {
@@ -120,29 +113,18 @@ namespace HOTELpinSight.Pages
             new SelectElement(_expDateYear).SelectByText(expYear);
         }
 
-        /*
-        public void SelectPassengerDropDown(string paxName)
-        {
-            WaitForElementVisible(_clickDropDownPax);
-            _clickDropDownPax.Click();
-            Thread.Sleep(1000);
-            //WaitForElementVisible(_selectHector);
-            _selectHector.Click();
-            Thread.Sleep(3000);
-        }
-        */
-
-        public void EnterBillingAddress(string address, string country, string state, string city, string zip)
+        public void EnterBillingAddress(string address, string country, int idState, string city, string zip)
         {
             WaitForElementVisible(_address1);
             _address1.SendKeys(address);
             _address1.SendKeys(Keys.Tab);
             new SelectElement(_country).SelectByText(country);
             WaitForElementVisible(_state);
-            new SelectElement(_state).SelectByText(state);
+            Thread.Sleep(2000);
+            //Random issue no such element exception with text "Texas"
+            new SelectElement(_state).SelectByIndex(idState);
             _city.SendKeys(city);
-            _city.SendKeys(Keys.Tab);
-            //Thread.Sleep(2000);
+            _city.SendKeys(Keys.Tab);            
             _zip.SendKeys(zip);                      
         }
 
@@ -160,13 +142,11 @@ namespace HOTELpinSight.Pages
             if (js != null)
             {
                 js.ExecuteScript("document.getElementById('chkTerms').click();");
-            }                              
-            
-        }
+            }                                       
+        }        
 
         public ConfirmationPage ClickConfirmBook()
-        {
-            //WaitForElementVisible(_completeBookButton);
+        {            
             Actions completeBook = new Actions(_driver);
             completeBook.MoveToElement(_completeBookButton).Click().Perform();
             return new ConfirmationPage(_driver);

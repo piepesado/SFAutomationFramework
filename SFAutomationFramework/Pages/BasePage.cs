@@ -54,6 +54,15 @@ namespace HOTELpinSight.Pages
             }
 
         }
+
+        //Add this method to Framework
+        public void EnsurePageIsLoaded(string pageTitle)
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(120));
+            wait.Until(d => d.Title.Contains(pageTitle));
+            Thread.Sleep(2000);
+        }
+
         /// <summary>
         /// Enters user strings
         /// </summary>

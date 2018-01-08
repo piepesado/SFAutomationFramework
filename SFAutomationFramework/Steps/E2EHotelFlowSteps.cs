@@ -28,7 +28,7 @@ namespace SFAutomationFramework.Steps
 
         //Parameters Billing Address
         string addressLine1 = "Legacy Drive Suite 53600";
-        string city = "Piano";
+        string city = "Plano";
         string country = "United States";
         string zip = "75034";
         string state = "Texas";
@@ -40,6 +40,10 @@ namespace SFAutomationFramework.Steps
         string expectedMessage = "Your reservation is booked. No need to call us to reconfirm this reservation.";
 
         string browserName = ConfigurationManager.AppSettings["BROWSER"];
+
+        string pageTitle = "Checkout";
+
+        int indexState = 51;
 
         [Given(@"I have entered to pinSight application")]
         public void GivenIHaveEnteredToPinSightApplication()
@@ -55,8 +59,7 @@ namespace SFAutomationFramework.Steps
         
         [When(@"I enter (.*) to search hotel")]
         public void WhenIEnterCityToSearchHotel(string city)
-        {
-            // city = "NYC";
+        {            
             HotelSearchPage hotelSearch = new HotelSearchPage(_driver);
             hotelSearch.Search(city);
             hotelSearch.SelectOneAdult();
@@ -73,8 +76,7 @@ namespace SFAutomationFramework.Steps
             ResultsPage hotelResults = new ResultsPage(_driver);
             hotelResults.EnsurePageIsLoaded();
 
-            hotelResults.ClickShowRooms();
-            //hotelResults.ClickAmenities();
+            hotelResults.ClickShowRooms();            
             HotelDetailsPage hotelDetails = new HotelDetailsPage(_driver);            
             hotelDetails.ClickAddToCart();
             hotelDetails.ClickCheckOutButton();
@@ -84,10 +86,10 @@ namespace SFAutomationFramework.Steps
         public void WhenIHaveCheckedOut()
         {
             CheckOutPage hotelCheckOut = new CheckOutPage(_driver);
-            hotelCheckOut.EnsurePageIsLoaded();
+            hotelCheckOut.EnsurePageIsLoaded(pageTitle);
             hotelCheckOut.SelectPax();
             hotelCheckOut.EnterCreditCard(cardName, cardNumber, cvvNumber, expMonth, expYear);
-            hotelCheckOut.EnterBillingAddress(addressLine1, country, state, city, zip);            
+            hotelCheckOut.EnterBillingAddress(addressLine1, country, indexState, city, zip);            
             hotelCheckOut.EnterCommunicationDetails(phoneBilling);
             hotelCheckOut.CheckAgreement();
             hotelCheckOut.ClickConfirmBook();
@@ -98,8 +100,7 @@ namespace SFAutomationFramework.Steps
         {            
             ConfirmationPage hotelConfirmation = new ConfirmationPage(_driver);
             hotelConfirmation.CheckConfNum();
-
-            //Assert.IsTrue(expectedMessage
+            Thread.Sleep(10000);
         }
 
         /// <summary>
@@ -119,7 +120,7 @@ namespace SFAutomationFramework.Steps
             }
             catch (Exception)
             {
-                // We will swallow any exceptions in the cleanup step.
+                // It will get any exceptions in the cleanup step.
             }
         }
     }

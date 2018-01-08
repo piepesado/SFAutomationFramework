@@ -72,8 +72,7 @@ namespace HOTELpinSight.Pages
             WaitForElementVisible(_searchOption);
             Actions selectLoc = new Actions(_driver);
             selectLoc.MoveToElement(_searchOption);
-            selectLoc.Click(_searchOption);
-           // WaitForElementVisible(_checkInDatePicker);
+            selectLoc.Click(_searchOption);           
             selectLoc.Build();
             selectLoc.Perform();
         }
@@ -81,15 +80,7 @@ namespace HOTELpinSight.Pages
         //Calendars
 
         public void SelectCheckIn()
-        {
-            //WaitForElementVisible(_checkInDatePicker);
-            //((IJavaScriptExecutor)_driver).ExecuteScript("document.getElementById('input').removeAttribute('readonly',0);"); // Enables the from date box
-
-
-            //_checkInDatePicker.Clear();
-            //_checkInDatePicker.SendKeys("10/01/2018"); //Enter date in required format
-
-            
+        {                    
             Actions selectCheckIn = new Actions(_driver);
             selectCheckIn.MoveToElement(_checkInDatePicker);
             //WaitForElementVisible(_checkInDatePicker);
@@ -120,44 +111,6 @@ namespace HOTELpinSight.Pages
             _checkOutDatePicker.Clear();
             _checkOutDatePicker.SendKeys("01/10/2018"); //Enter date in required format
         }
-
-        /*
-        public void SelectCheckOut()
-        {
-            Actions selectCheckOut = new Actions(_driver);
-            selectCheckOut.MoveToElement(_checkOutDatePicker);
-            _checkInDatePicker.Click();
-            if (_checkInDatePicker.Text != "2018")
-                new SelectElement(_checkOutDatePickerYear).SelectByValue("2018");
-            new SelectElement(_checkOutDatePickerMonth).SelectByValue("May");
-
-            IList<IWebElement> rows = _checkInDatePicker.FindElements(By.TagName("tr"));
-            IList<IWebElement> columns = _checkInDatePicker.FindElements(By.TagName("td"));
-
-            foreach (IWebElement cell in columns)
-            {
-                if (cell.ToString().Equals("6"))
-                {
-                    cell.FindElement(By.LinkText("6")).Click();
-                    break;
-                }
-            }
-
-            selectCheckIn.Perform();
-        }
-
-        public void ClickSearchHotel()
-        {
-            _searchButton.Click();
-        }
-        */
-
-        /*
-        public void ClickSearchHotel()
-        {
-            _searchButton.Click();
-        }
-        */
 
         public void EnsurePageIsLoaded()
         {

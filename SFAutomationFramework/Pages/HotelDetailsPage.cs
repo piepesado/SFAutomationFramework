@@ -78,23 +78,6 @@ namespace SFAutomationFramework.Pages
             // Wait for some time for rendering to be complete.
             Thread.Sleep(2000);
             addToCartButton.Click();
-
-            //WaitForElementVisible(_addToCartButton);
-            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click()", _addToCartButton);
-            //_addToCartButton.Click();
-            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _addToCartButton);
-
-            /*
-            Actions clickAddCart = new Actions(_driver);
-            clickAddCart.MoveToElement(_addToCartButton).Perform();
-            clickAddCart.Click(_addToCartButton);
-            
-            clickAddCart.Build();
-            clickAddCart.Perform();
-            //_addToCartButton.Click();
-            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _addToCartButton);                     
-            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click()", _addToCartButton);
-            */
         }
     }
 }

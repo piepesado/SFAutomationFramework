@@ -64,58 +64,12 @@ namespace HOTELpinSight.Pages
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             wait.Until(ExpectedConditions.ElementToBeClickable(_cardView));
             _cardView.Click();
-        }
-        
-        
-
-
-        /*
-        public void ClickAddToCart()
-        {
-
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
-            wait.Until(ExpectedConditions.ElementToBeClickable(_addToCartButton));
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click()", _addToCartButton);
-            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _addToCartButton);
-
-            /*
-            Actions clickAddCart = new Actions(_driver);
-            clickAddCart.MoveToElement(_addToCartButton).Perform();
-            clickAddCart.Click(_addToCartButton);
-            
-            clickAddCart.Build();
-            clickAddCart.Perform();
-            //_addToCartButton.Click();
-            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", _addToCartButton);
-            
-
-            
-            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click()", _addToCartButton);
-            */
-        //}
-       
+        }       
 
         public void CheckImAtCheckOut()
         {
             WaitForElementVisible(_checkOutButton);
-        }
-
-        /*
-        public void ClickCheckOut()
-        {
-            WaitForElementVisible(_checkOutButton);
-            _checkOutButton.Click();
-        };
-        */
-
-        /*
-        public void ClickAmenities()
-        {
-            WaitForElementVisible(_addToCartButton);
-            _amenitiesTab.Click();
-            _roomDetailsTab.Click();
-        }
-        */
+        }        
 
         public HotelDetailsPage ClickShowRooms()
         {
